@@ -1,8 +1,24 @@
 {% extends 'blog/base.html' %}
 
+{% block page_header %}
+
+<h2 class="display-5">
+    You have been logged out.
+</h2>
+
+{% endblock page_header %}
+
+
 {% block content %}
 
-    <p>You have been logged out.</p>
-    <p>Thank you for visiting.</p>
+    <p class="lead">
+        Thank you for visiting.
+    </p>
+
+    <script>
+        setTimeout(function() {
+            window.location.href = "{% url 'blog:index' %}";
+            }, 1500);
+    </script>
 
 {% endblock content %}

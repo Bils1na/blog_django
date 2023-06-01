@@ -1,10 +1,98 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{%extends 'blog/base.html' %}
+
+
+{% block page_header %}
+<div class="jumbotron">
+    <h1 class="display-5">
+        Welcome to the BLog.
+    </h1>
+
+    <p class="lead">
+        Greeting you on the BLog. It's the first site by bils1n@.
+        There is the blog window and the users application here, everyone users can add a new post,
+        change already created posts and also delete these posts. Well, it's not all yet...
+        Coming soon.
+    </p>
+</div>
+{% endblock page_header %}
+
+{% block content %}
+    <!-- Register and chat block -->
+    <div class="container py-4">
+        <div class="row align-items-md-stretch">
+            <div class="col-md-6">
+                <div class="h-100 p-5 text-white bg-dark rounded-3">
+                    {% if user.is_authenticated %}
+                        <p class="lead">
+                            You can leave post! =)
+                        </p>
+                        {% if user.is_authenticated %}
+                            <a class="btn btn-primary btn-sm" type="button"
+                               href="{% url 'blog:new_post' %}">Add Post</a>
+                        {% endif %}
+                    {% else %}
+                        <p>
+                            If you want to leave post, you have to
+                            <a href="{% url 'users:register' %}">register</a>
+                            on the site.
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="h-100 p-5 text-white bg-secondary rounded-3">
+                    <p>There will the chat here</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  Register and chat block end  -->
+    <!-- Posts block -->
+    <div class="row mb-2">
+        {% for post in posts %}
+            <div class="col-md-6">
+                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4
+                shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <ul>
+                            <h3 class="mb-0">
+                                {{ post.title }}
+                            </h3>
+                            <p class="card-text mb-auto">
+                                {{ post.message }}
+                            </p>
+                            <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
+                                {% if user.is_authenticated and user == post.author %}
+                                    <a class="btn btn-primary"
+                                       href="{% url 'blog:edit_post' post.id %}">Edit Post</a>
+                                    <a class="btn btn-primary"
+                                       href="{% url 'blog:delete' post.id %}">Delete</a>
+                                    {% endif %}
+                            </div>
+                        </ul>
+                        {% if user.is_authenticated %}
+                            <a class="btn btn-primary btn-sm" type="button"
+                               href="{% url 'blog:new_post' %}">Add Post</a>
+                        {% endif %}
+                    </div>
+                    <div class="col-auto d-none d-lg-block">
+                        <svg class="bd-placeholder-img" width="200" height="250"
+                             xmlns="http://www.w3.org/2000/svg" role="image"
+                             aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice"
+                             focusable="false">
+                            <text x="50%" y="50%">
+                                {{ post.author }}
+                            </text>
+                            <text x="50%" y="60%">
+                                {{ post.timestamp|date:'d.m.y H:i' }}
+                            </text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>No posts yet.</p>
+        {% endfor %}
+    </div>
+    <!--  Posts block end  -->
+{% endblock content %}

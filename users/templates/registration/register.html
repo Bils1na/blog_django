@@ -1,10 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'blog/base.html' %}
+
+{% block page_header %}
+
+<h2 class="display-5 d-flex justify-content-center">Registration</h2>
+
+{% endblock page_header%}
+
+{% block content %}
+<!-- Registration block-->
+  <form method="post" action="{% url 'users:register' %}">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="email" class="form-label">Your email</label>
+      <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+      <div id="emailHelp" class="form-text">We don't bring your email nobody.</div>
+    </div>
+    <div class="mb-3">
+      <label for="username" class="form-label">Your username</label>
+      <input type="text" class="form-control" id="username" name="username" aria-describedby="usernameHelp">
+      <div id="usernameHelp" class="form-text"></div>
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Your password</label>
+      <input type="password" class="form-control" id="password" name="password" aria-describedby="passwordHelp">
+      <div id="passwordHelp" class="form-text"></div>
+    </div>
+    <div class="mb-3">
+      <label for="confirm_password" class="form-label">Confirm your password</label>
+      <input type="password" class="form-control" id="confirm_password" name="confirm_password" aria-describedby="confirm_passwordHelp">
+      <div id="confirm_passwordHelp" class="form-text"></div>
+    </div>
+    <button class="btn btn-primary">Register</button>
+    <input type="hidden" name="next" value="{% url 'blog:index' %}" />
+  </form>
+<!--Registration block end-->
+{% endblock content %}
