@@ -14,7 +14,7 @@ class RegistrationForm(forms.ModelForm):
     def _confirm_email(self):
         confirm_email = self.cleaned_data.get("email")
         if User.objects.filter(email=confirm_email).exists():
-            raise forms.ValidationError("Email already exists")
+            raise forms.ValidationError("Email already exists.")
         return confirm_email
         
     def _confirm_password(self):

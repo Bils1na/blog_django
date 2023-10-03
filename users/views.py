@@ -35,7 +35,13 @@ def register(request):
             form.save()
             return redirect('blog:index')
         else:
-           return render(request, "registration/register.html", {"error": "Email exists"}) 
+            if ["Passwords do not match."]:
+                return render(request, "registration/register.html", 
+                              {"error": "Password do not match"})
+            elif ["Email already exists."]:
+                return render(request, "registration/register.html", 
+                              {"error": "Email exists"})
+            
     else:
         form = RegistrationForm()
 
