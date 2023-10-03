@@ -11,9 +11,14 @@
   <form method="post" action="{% url 'users:register' %}">
     {% csrf_token %}
     <div class="mb-3">
+      {% if error == "Enail exists" %}
+      <div>
+        <p>This email already exists</p>
+      </div>
+      {% endif %}
       <label for="email" class="form-label">Your email</label>
       <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
-      <div id="emailHelp" class="form-text">We don't bring your email nobody.</div>
+      <div id="emailHelp" class="form-text"></div>
     </div>
     <div class="mb-3">
       <label for="username" class="form-label">Your username</label>

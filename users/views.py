@@ -34,6 +34,8 @@ def register(request):
         if form.is_valid():
             form.save()
             return redirect('blog:index')
+        else:
+           return render(request, "registration/register.html", {"error": "Email exists"}) 
     else:
         form = RegistrationForm()
 
