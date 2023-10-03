@@ -12,8 +12,10 @@ class RegistrationForm(forms.ModelForm):
         fields = ("username", "email")
 
     def _confirm_email(self):
+        cofirm_email = self.cleaned_data.get("email")
         if User.objects.filter(email=self.cleaned_data.get('email')).exists():
             raise forms.ValidationError("Email already exists")
+        return cofirm_email
         
     def _confirm_password(self):
         password = self.cleaned_data.get("password")
@@ -21,6 +23,7 @@ class RegistrationForm(forms.ModelForm):
         print(self.cleaned_data)
         if password and confirm_password and password != confirm_password:
             raise forms.ValidationError("Passwords do not match.")
+        return confirm_password
     
     def clean(self):
         self._confirm_password()
