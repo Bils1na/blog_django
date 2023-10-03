@@ -16,6 +16,12 @@ class RegistrationForm(forms.ModelForm):
         if User.objects.filter(email=confirm_email).exists():
             raise forms.ValidationError("Email already exists.")
         return confirm_email
+    
+    def _confirm_username(self):
+        confirm_username = self.cleaned_data.get("username")
+        if User.objects.filter(username=confirm_username).exists():
+            raise forms.ValidationError("Username already exists.")
+        return confirm_username
         
     def _confirm_password(self):
         password = self.cleaned_data.get("password")
@@ -26,6 +32,7 @@ class RegistrationForm(forms.ModelForm):
     
     def clean(self):
         self._confirm_password()
+        self._confirm_username()
         self._confirm_email()
     
     def save(self, commit=True):

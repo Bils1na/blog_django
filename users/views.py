@@ -29,25 +29,21 @@ def log_out(request):
 
 
 def register(request):
+    error_message = ""
     if request.method == "POST":
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('blog:index')
         else:
-            # if "Passwords do not match." in form.errors:
-            #     error_message = "Password do not match"
-            # elif "Email already exists." in form.errors:
-            #     error_message = "Email already exists"
-            if "Passwords do not match." in form.errors:
-                return render(request, "registration/register.html", 
-                              {"error": "Passwords do not match"})
-            elif "Email already exists." in form.errors:
-                return render(request, "registration/register.html", 
-                              {"error": "Email exists"})
+            if "Passwords do not match." in str(form.errors):
+                error_message = "Password do not match. Enter new password."
+            elif "Email already exists." in str(form.errors):
+                error_message = "Email already exists. You need to enter other email."
+            elif "Username already exists." in str(form.errors):
+                error_message = "Username already exists. You need to enter other username."
             
-            # return render(request, "registration/register.html", 
-            #                   {"error": error_message})
+            return render(request, "registration/register.html", {"error": error_message})
     else:
         form = RegistrationForm()
 
