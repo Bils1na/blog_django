@@ -48,10 +48,9 @@ def register(request):
 
     return render(request, 'registration/register.html', {'form': form})
 
-# def change_full_name(request):
-#     if request.method == "POST":
-#         new_first_name = request.POST["first_name"]
-#         new_last_name = request.POST["last_name"]
+def edit_full_name(request):
+    if request.method == "POST":
+        
 
 
 @login_required
