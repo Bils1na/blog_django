@@ -12,13 +12,13 @@ class RegistrationForm(forms.ModelForm):
         fields = ("username", "email")
 
     def _confirm_email(self):
-        confirm_email = self.cleaned_data.get("email")
+        confirm_email = self.cleaned_data.get("email").lower()
         if User.objects.filter(email=confirm_email).exists():
             raise forms.ValidationError("Email already exists.")
         return confirm_email
     
     def _confirm_username(self):
-        confirm_username = self.cleaned_data.get("username")
+        confirm_username = self.cleaned_data.get("username").lower()
         if User.objects.filter(username=confirm_username).exists():
             raise forms.ValidationError("Username already exists.")
         return confirm_username
