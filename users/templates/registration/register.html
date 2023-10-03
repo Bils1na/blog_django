@@ -11,23 +11,49 @@
   <form method="post" action="{% url 'users:register' %}">
     {% csrf_token %}
     <div class="mb-3">
+      <!-- Email error block -->
+      {% if error %}
+      <div class="container d-flex justify-content-center mb-5">
+        <div class="p-1 position-absolute alert alert-danger d-flex justify-content-center align-items-center"
+             role="alert">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18"
+               class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2"
+               viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091
+                1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535
+                0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0
+                0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+          </svg>
+
+          <div>
+           {{ error }}
+          </div>
+        </div>
+      <div class="mb-3"></div>
+    </div>
+      {% endif %}
+      <!-- Email error block end -->
       <label for="email" class="form-label">Your email</label>
-      <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
-      <div id="emailHelp" class="form-text">We don't bring your email nobody.</div>
+      <input type="email" class="form-control" id="email" name="email" 
+      aria-describedby="emailHelp">
+      <div id="emailHelp" class="form-text"></div>
     </div>
     <div class="mb-3">
       <label for="username" class="form-label">Your username</label>
-      <input type="text" class="form-control" id="username" name="username" aria-describedby="usernameHelp">
+      <input type="text" class="form-control" id="username" name="username" 
+      aria-describedby="usernameHelp">
       <div id="usernameHelp" class="form-text"></div>
     </div>
     <div class="mb-3">
       <label for="password" class="form-label">Your password</label>
-      <input type="password" class="form-control" id="password" name="password" aria-describedby="passwordHelp">
+      <input type="password" class="form-control" id="password" name="password" 
+      aria-describedby="passwordHelp">
       <div id="passwordHelp" class="form-text"></div>
     </div>
     <div class="mb-3">
       <label for="confirm_password" class="form-label">Confirm your password</label>
-      <input type="password" class="form-control" id="confirm_password" name="confirm_password" aria-describedby="confirm_passwordHelp">
+      <input type="password" class="form-control" id="confirm_password" 
+      name="confirm_password" aria-describedby="confirm_passwordHelp">
       <div id="confirm_passwordHelp" class="form-text"></div>
     </div>
     <button class="btn btn-primary">Register</button>

@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
@@ -29,15 +28,30 @@ def log_out(request):
 
 
 def register(request):
+    error_message = ""
     if request.method == "POST":
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('blog:index')
+        else:
+            if "Passwords do not match." in str(form.errors):
+                error_message = "Password do not match. Enter new password."
+            elif "Email already exists." in str(form.errors):
+                error_message = "Email already exists. You need to enter other email."
+            elif "Username already exists." in str(form.errors):
+                error_message = "Username already exists. You need to enter other username."
+            
+            return render(request, "registration/register.html", {"error": error_message})
     else:
         form = RegistrationForm()
 
     return render(request, 'registration/register.html', {'form': form})
+
+def edit_full_name(request):
+    if request.method == "POST":
+        
+
 
 @login_required
 def profile(request, user_id):
