@@ -1,8 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
-
-class UserProfile(models.Model):
-
-    username = User.username
-    email = User.email
+class BlogUser(AbstractUser):
+    date_of_birth = models.DateField(null = True, blank = True)
