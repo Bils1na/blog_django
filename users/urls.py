@@ -13,6 +13,8 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     # Profile page
     path('profile/<int:user_id>/', views.profile, name='profile'),
-    # Edit profile page
+    # Edit name page
     path('profile/<int:user_id>/edit_full_name', views.edit_full_name, name='edit_full_name'),
+    # Edit email page
+    path('profile/<int:user_id>/edit_email', views.edit_email, name='edit_email'),
 ]

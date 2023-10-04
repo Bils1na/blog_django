@@ -12,9 +12,12 @@
     <p class="lead">
         Your name - {{ user.first_name }} {{ user.last_name }}
         <a class="btn btn-primary" type="button" 
-        href="{% url 'users:edit_full_name' user.id %}">Change name</a></p>
+        href="{% url 'users:edit_full_name' user.id %}">Change name</a>
+    </p>
     <p class="lead">
         Your email - {{ user.email }}
+        <a class="btn btn-primary" type="button" 
+        href="{% url 'users:edit_email' user.id %}">Change email</a>
     </p>
     <p class="lead">
         You have joined us - {{ user.date_joined }}

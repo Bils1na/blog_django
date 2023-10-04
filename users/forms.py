@@ -43,8 +43,25 @@ class RegistrationForm(forms.ModelForm):
             user.save()
         return user
     
+
 class EditFullNameForm(forms.ModelForm):
 
     class Meta:
         model = User
         fields = ["first_name", "last_name"]
+
+
+class EditEmailForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ["email"]
+
+    def _confirm_email(self):
+        confirm_email = self.cleaned_data.get("email").lower()
+        if User.objects.filter(email=confirm_email).exists():
+            raise forms.ValidationError("Email already exists.")
+        return confirm_email
+
+    def clean(self):
+        self._confirm_email()

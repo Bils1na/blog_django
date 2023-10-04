@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 
-from .forms import RegistrationForm, EditFullNameForm
+from .forms import RegistrationForm, EditFullNameForm, EditEmailForm
 
 
 def log_in(request):
@@ -59,7 +59,22 @@ def edit_full_name(request, user_id):
                 return redirect("users:profile", user_id)
         else:
             form = EditFullNameForm(instance=user)
-        return render(request, "registration/edit_full_name.html", user_id, {"form": form})
+        return render(request, "registration/edit_full_name.html", {"form": form})
+    else:
+        raise Http404
+    
+@login_required
+def edit_email(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    if user_id == request.user.id:
+        if request.method == "POST":
+            form = EditEmailForm(request.POST, instance=user)
+            if form.is_valid():
+                form.save()
+                return redirect("users:profile", user_id)
+        else:
+            form = EditEmailForm(instance=user)
+        return render(request, "registration/edit_email.html", {"form": form})
     else:
         raise Http404
 
