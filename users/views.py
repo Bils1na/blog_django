@@ -48,8 +48,8 @@ def register(request):
 
     return render(request, 'registration/register.html', {'form': form})
 
-def edit_full_name(request):
-    if request.method == "POST":
+# def edit_full_name(request):
+#     if request.method == "POST":
         
 
 
