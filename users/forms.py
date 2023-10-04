@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.models import User
+from users.models import BlogUser
 
 
 class RegistrationForm(forms.ModelForm):
@@ -8,18 +8,18 @@ class RegistrationForm(forms.ModelForm):
     email = forms.EmailField(label="Email", widget=forms.EmailInput)
 
     class Meta:
-        model = User
+        model = BlogUser
         fields = ("username", "email")
 
     def _confirm_email(self):
         confirm_email = self.cleaned_data.get("email").lower()
-        if User.objects.filter(email=confirm_email).exists():
+        if BlogUser.objects.filter(email=confirm_email).exists():
             raise forms.ValidationError("Email already exists.")
         return confirm_email
     
     def _confirm_username(self):
         confirm_username = self.cleaned_data.get("username").lower()
-        if User.objects.filter(username=confirm_username).exists():
+        if BlogUser.objects.filter(username=confirm_username).exists():
             raise forms.ValidationError("Username already exists.")
         return confirm_username
         
@@ -47,7 +47,7 @@ class RegistrationForm(forms.ModelForm):
 class EditProfileForm(forms.ModelForm):
 
     class Meta:
-        model = User
+        model = BlogUser
         fields = ["email", "first_name", "last_name"]
 
     def _confirm_email(self):
@@ -55,7 +55,7 @@ class EditProfileForm(forms.ModelForm):
         current_user = self.instance
         current_email = current_user.email.lower()
         if confirm_email != current_email:
-            if User.objects.filter(email=confirm_email).exists():
+            if BlogUser.objects.filter(email=confirm_email).exists():
                 raise forms.ValidationError("Email already exists.")
         return confirm_email
 

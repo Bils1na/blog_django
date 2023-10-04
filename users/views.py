@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 
+from users.models import BlogUser
 from .forms import RegistrationForm, EditProfileForm
 
 
@@ -50,7 +50,7 @@ def register(request):
     
 @login_required
 def edit_profile(request, user_id):
-    user = get_object_or_404(User, id=user_id)
+    user = get_object_or_404(BlogUser, id=user_id)
     if user_id == request.user.id:
         if request.method == "POST":
             form = EditProfileForm(request.POST, instance=user)
@@ -66,7 +66,7 @@ def edit_profile(request, user_id):
 @login_required
 def profile(request, user_id):
     # User profile page
-    user = get_object_or_404(User, id=user_id)
+    user = get_object_or_404(BlogUser, id=user_id)
     if user_id == request.user.id:
         return render(request, 'registration/profile.html', {'user': user})
     else:
