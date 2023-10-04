@@ -47,13 +47,6 @@ def register(request):
         form = RegistrationForm()
 
     return render(request, 'registration/register.html', {'form': form})
-
-<<<<<<< HEAD
-# def edit_full_name(request):
-#     if request.method == "POST":
-        
-
-=======
     
 @login_required
 def edit_profile(request, user_id):
@@ -69,7 +62,6 @@ def edit_profile(request, user_id):
         return render(request, "registration/edit_profile.html", {"form": form})
     else:
         raise Http404
->>>>>>> fedef2c92b2c58a4be05a1b9e569e1b7f00eba0b
 
 @login_required
 def profile(request, user_id):

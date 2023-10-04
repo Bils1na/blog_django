@@ -52,8 +52,11 @@ class EditProfileForm(forms.ModelForm):
 
     def _confirm_email(self):
         confirm_email = self.cleaned_data.get("email").lower()
-        if User.objects.filter(email=confirm_email).exists():
-            raise forms.ValidationError("Email already exists.")
+        current_user = self.instance
+        current_email = current_user.email.lower()
+        if confirm_email != current_email:
+            if User.objects.filter(email=confirm_email).exists():
+                raise forms.ValidationError("Email already exists.")
         return confirm_email
 
     def clean(self):

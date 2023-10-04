@@ -14,9 +14,5 @@ urlpatterns = [
     # Profile page
     path('profile/<int:user_id>/', views.profile, name='profile'),
     # Edit profile page
-<<<<<<< HEAD
-    # path('profile/<int:user_id>/edit_full_name', views.edit_full_name, name='full_name')
-=======
     path('profile/<int:user_id>/edit_profile', views.edit_profile, name='edit_profile'),
->>>>>>> fedef2c92b2c58a4be05a1b9e569e1b7f00eba0b
 ]
