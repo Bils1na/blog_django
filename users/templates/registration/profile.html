@@ -9,10 +9,11 @@
 {% endblock page_header %}
 
 {% block content %}
+    <a class="btn btn-primary" type="button" 
+    href="{% url 'users:edit_profile' user.id %}">Edit your profile</a>
     <p class="lead">
-        Your name - {{ user.first_name }} {{ user.last_name }}
+        Your name - {{ user.first_name }} {{ user.last_name }} 
     </p>
-    <button class="btn btn-primary">Change your full name</button>
     <p class="lead">
         Your email - {{ user.email }}
     </p>

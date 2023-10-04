@@ -42,3 +42,19 @@ class RegistrationForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+    
+
+class EditProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ["email", "first_name", "last_name"]
+
+    def _confirm_email(self):
+        confirm_email = self.cleaned_data.get("email").lower()
+        if User.objects.filter(email=confirm_email).exists():
+            raise forms.ValidationError("Email already exists.")
+        return confirm_email
+
+    def clean(self):
+        self._confirm_email()
