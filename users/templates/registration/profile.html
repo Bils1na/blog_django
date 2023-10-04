@@ -11,8 +11,8 @@
 {% block content %}
     <p class="lead">
         Your name - {{ user.first_name }} {{ user.last_name }}
-    </p>
-    <button class="btn btn-primary">Change your full name</button>
+        <a class="btn btn-primary" type="button" 
+        href="{% url 'users:edit_full_name' user.id %}">Change name</a></p>
     <p class="lead">
         Your email - {{ user.email }}
     </p>
