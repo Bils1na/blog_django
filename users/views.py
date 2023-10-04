@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 
-from .forms import RegistrationForm, EditFullNameForm, EditEmailForm
+from .forms import RegistrationForm, EditProfileForm
 
 
 def log_in(request):
@@ -48,33 +48,19 @@ def register(request):
 
     return render(request, 'registration/register.html', {'form': form})
 
-@login_required
-def edit_full_name(request, user_id):
-    user = get_object_or_404(User, id=user_id)
-    if user_id == request.user.id:
-        if request.method == "POST":
-            form = EditFullNameForm(request.POST, instance=user)
-            if form.is_valid():
-                form.save()
-                return redirect("users:profile", user_id)
-        else:
-            form = EditFullNameForm(instance=user)
-        return render(request, "registration/edit_full_name.html", {"form": form})
-    else:
-        raise Http404
     
 @login_required
-def edit_email(request, user_id):
+def edit_profile(request, user_id):
     user = get_object_or_404(User, id=user_id)
     if user_id == request.user.id:
         if request.method == "POST":
-            form = EditEmailForm(request.POST, instance=user)
+            form = EditProfileForm(request.POST, instance=user)
             if form.is_valid():
                 form.save()
                 return redirect("users:profile", user_id)
         else:
-            form = EditEmailForm(instance=user)
-        return render(request, "registration/edit_email.html", {"form": form})
+            form = EditProfileForm(instance=user)
+        return render(request, "registration/edit_profile.html", {"form": form})
     else:
         raise Http404
 

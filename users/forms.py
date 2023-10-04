@@ -44,18 +44,11 @@ class RegistrationForm(forms.ModelForm):
         return user
     
 
-class EditFullNameForm(forms.ModelForm):
+class EditProfileForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ["first_name", "last_name"]
-
-
-class EditEmailForm(forms.ModelForm):
-
-    class Meta:
-        model = User
-        fields = ["email"]
+        fields = ["email", "first_name", "last_name"]
 
     def _confirm_email(self):
         confirm_email = self.cleaned_data.get("email").lower()
