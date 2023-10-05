@@ -48,7 +48,7 @@ class EditProfileForm(forms.ModelForm):
 
     class Meta:
         model = BlogUser
-        fields = ["email", "first_name", "last_name"]
+        fields = ["email", "first_name", "last_name", "date_of_birth"]
 
     def _confirm_email(self):
         confirm_email = self.cleaned_data.get("email").lower()
