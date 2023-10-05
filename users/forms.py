@@ -61,3 +61,4 @@ class EditProfileForm(forms.ModelForm):
 
     def clean(self):
         self._confirm_email()
+

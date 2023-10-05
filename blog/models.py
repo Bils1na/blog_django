@@ -11,4 +11,8 @@ class Post(models.Model):
 
     def __str__(self):
         """Returns string info about posts"""
-        return f"""{self.title}: {self.message}..."""
+        max_length = 100
+        if len(self.message) > max_length:
+            return f"{self.title}: {self.message[:max_length]}..."
+        else:
+            return f"""{self.title}: {self.message}"""

@@ -11,6 +11,9 @@
 {% block content %}
     <a class="btn btn-primary" type="button" 
     href="{% url 'users:edit_profile' user.id %}">Edit your profile</a>
+    <a class="btn btn-primary" type="button"
+    href="{% url 'users:password_change' %}">Change password</a>
+    <p class="lead">
     <p class="lead">
         Your name - {{ user.first_name }} {{ user.last_name }} 
     </p>
